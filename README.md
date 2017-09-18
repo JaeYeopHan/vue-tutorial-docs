@@ -11,6 +11,16 @@ $ cd vue-playground
 $ npm install
 $ npm start
 ```
+프로젝트 세팅을 하기 위해서 `Vue-cli`를 사용합니다. 빈 프로젝트에서 webpack 설정부터 할 수 있지만 이 포스팅의 목적은 webpack이 아닙니다!
+
+vue-cli가 제공하는  webpack 기반 템플릿은 총 세 가지입니다.
+* webpack
+* webpack-simple
+* pwa
+
+그 외에도 여러 템플릿이 존재합니다.
+* 가장 단순한 형태인 `simple` 템플릿
+  * CDN으로 vue 라이브러리가 추가되어 있으며 `index.html` 파일 하나만 생성된다.
 
 ## Structure
 `/build/webpack.base.conf.js`를 보시면 `entry`로 `/src/main.js`가 설정되있는 것을 알 수 있습니다. `vue-cli`가 생성해준 프로젝트 구조를 그대로 가져다가 쓰기 전에 해당 구조를 먼저 파악해봅니다.
@@ -93,6 +103,12 @@ template 태그로 감싸서 for문을 돌릴 수 있다.
 * v-cloak
   * 컴파일되지 않은 템플릿은 나타나지 않도록 할 때 사용한다.
   * v-for 디렉티브를 사용하여 대량의 UI를 렌더링할 때 {{}}와 함께 렌더링되는 경우가 많은데 이를 방지하기 위해서 사용하는 디렉티브이다.
+```
+<style>
+[v-cloak] { display: none; }
+</style>
+<div v-cloak></div>
+```
 
 * 계산형 속성(Computed Property)
 ```
@@ -106,3 +122,16 @@ computed: {
 }
 ```
 특정 값을 주입할 때, 함수를 거쳐 적용되야하는 경우, `computed`라는 것을 넘겨주고 해당 객체의 key로 접근하여 사용할 수 있다.
+
+
+---
+
+## Vue 인스턴스 라이프 사이클
+* beforeCreate
+* create
+* beforeMount
+* mounted
+* beforeUpdate
+* updated
+* beforeDestroy
+* destroyed
