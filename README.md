@@ -14,9 +14,9 @@ $ cd vue-practice
 
 프로젝트 세팅을 하기 위해서 `Vue-cli`를 사용합니다. 빈 프로젝트에서 webpack 설정부터 할 수 있지만 이 포스팅의 목적은 webpack이 아닙니다! 커맨드 하나로 쉽게 해결할 수 있습니다.
 
-[Vue-cli Github repository](https://github.com/vuejs/vue-cli)
+_cf) [Vue-cli Github repository](https://github.com/vuejs/vue-cli)_
 
-vue-cli가 제공하는 템플릿은 총 여섯 가지입니다.
+#### vue-cli가 제공하는 템플릿은 총 여섯 가지입니다.
 * webpack
 * webpack-simple
 * browserify
@@ -26,29 +26,21 @@ vue-cli가 제공하는 템플릿은 총 여섯 가지입니다.
 * simple
   * CDN으로 vue 라이브러리가 추가되어 있으며 `index.html` 파일 하나만 생성됩니다.
 
-vue-cli에 대한 보다 자세한 설명은 다음 포스팅을 참고하시면 좋을 것 같아 공유드립니다/
-[Vue-CLI 로 Vue.js 시작하기 (browserify / webpack) - schemr
+vue-cli에 대한 보다 자세한 설명은 다음 포스팅을 참고하시면 좋을 것 같아 공유드립니다.
+* [Vue-CLI 로 Vue.js 시작하기 (browserify / webpack) - schemr
 ](https://medium.com/witinweb/vue-cli-%EB%A1%9C-vue-js-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-browserify-webpack-22582202cd52)
 
 > HTML/CSS/JavaScript의 기본에 대해서 아직 부족하신 분들은 `simple` 템플릿으로 쉽게 익히실 수 있습니다. 이번 포스팅에서는 `simple` 템플릿을 사용하여 간단한 튜토리얼을 진행할 예정입니다.
 
-`simple` 템플릿을 사용하여 scaffolding하게 되면 `index.html` 파일 딱 하나가 생성되는데요, 이를 바로 띄우기 위해 여러 가지 방법이 있지만 `http-server`이라는 npm을 통해서 바로 running 시킬 수 있습니다.
+`simple` 템플릿을 사용하여 scaffolding하게 되면 `index.html` 파일 딱 하나가 생성되는데요, (사실 vue-cli가 필요하진 않았지만, vue를 계속 공부하시려면 필요하실 겁니다!) 이를 바로 띄우기 위해 여러 가지 방법이 있지만 `live-server`이라는 npm을 통해서 바로 running 시킬 수 있습니다.
+```bash
+$ npm install -g live-server
+# .../vue-practice
+$ live-server
 ```
-$ npm install -g http-server
-# in vue-practice
-$ http-server -c -1
-```
-위 커맨드를 입력하면 다음과 같이 나타나는데요,
-```
-Starting up http-server, serving ./
-Available on:
-  http://127.0.0.1:8080
-  http://10.66.100.253:8080
-  http://10.211.55.2:8080
-  http://10.37.129.2:8080
-Hit CTRL-C to stop the server
-```
-바로 브라우저에서 접속하시면 Vue로 작성된 페이지가 보여집니다.
+위 커맨드를 입력하면 `Serving "~~" at http://127.0.0.1:8080` 이 나타납니다. 해당 url로 브라우저에서 접속하시면 Vue로 작성된 페이지가 보여집니다. `live-server`는 자동으로 웹페이지가 reload되기 때문에 새로고침 해줄 필요가 없습니다 :)
+
+개발 환경 준비가 모두 끝났습니다 :)
 
 </br>
 
@@ -76,21 +68,26 @@ Hit CTRL-C to stop the server
 </body>
 </html>
 ```
-일단 위와 같이 가장 간단한 형태로 변경해줍니다. `<script src="https://unpkg.com/vue"></script>`코드가 vue 라이브러리를 cdn으로 불러와서 간단하게 vue를 사용할 수 있습니다.
+일단 위와 같이 가장 간단한 형태로 변경해줍니다. `<script src="https://unpkg.com/vue"></script>`코드가 vue 라이브러리를 CDN으로 불러와서 간단하게 vue를 사용할 수 있습니다.
 
 ### el
-밑에 `Vue 인스턴스` 부분에서 다른 속성들과 함께 좀 더 자세히 설명하겠지만, `el`은 Vue가 렌더링할 root element의 selector를 작성해줍니다.
+밑에 `Vue 인스턴스` 부분에서 다른 속성들과 함께 좀 더 자세히 설명하겠지만, `el`은 Vue가 렌더링할 root element의 `CSS Selector`를 작성해줍니다.
 
 ### data
-이 `data` 객체는 `model`의 역할을 수행하게 됩니다. 생성된 Vue 인스턴스에서 화면을 렌더링할 때 참조하게 되는 데이터 객체인 셈입니다. 이 객체에 명시된 속성으로 데이터를 화면에 렌더링 할 수 있습니다. Vue에서는 데이터를 화면에 렌더링하기 위해 간단하게 `{{}}`처럼 Mustache Expression(콧수염 표현식)을 사용할 수 있고 `디렉티브`를 사용할 수 있습니다. (Mustache Expression은 handlebars라는 템플릿 엔진을 사용해보신 분이라면 익숙한 문법일겁니다!)
+이 `data` 객체는 `model`의 역할을 수행하게 됩니다. 생성된 Vue 인스턴스에서 화면을 렌더링할 때 참조하게 되는 데이터 객체인 셈입니다. 이 객체에 명시된 속성으로 데이터를 화면에 렌더링 할 수 있습니다. Vue에서는 데이터를 화면에 렌더링하기 위해 간단하게 `{{}}`처럼 Mustache Expression(콧수염 표현식)을 사용할 수 있고 `디렉티브`를 사용할 수 있습니다. (Mustache Expression은 `handlebars`라는 템플릿 엔진을 사용해보신 분이라면 익숙한 문법일겁니다!)
 
 위 코드(`<h1>{{ greeting }}</h1>`)에서는 Mustache Expression으로 `greeting`이라는 데이터를 렌더링하고 있습니다.
 
+---
+
+</br>
+
+---
 
 ## 디렉티브(Directive)
-디렉티브를 통해 화면에 렌더링할 데이터를 정의할 수 있습니다. 디렉티브에는 단방향 디렉티브, 양방향 디렉티브가 존재합니다.
+디렉티브를 통해 화면에 렌더링할 데이터를 정의할 수 있습니다. 디렉티브에는 **단방향 디렉티브**, **양방향 디렉티브** 가 존재합니다.
 
-> 단방향 디렉티브
+> 단방향 디렉티브 먼저 살펴봅니다.
 
 ### v-text
 `innerText`라는 HTMLElement 속성과 같습니다.
@@ -99,7 +96,7 @@ data: {
   htmlText: "<span>Hello Vue!</span>",
 },
 ```
-위와 같은 데이터가 존재한다고 했을 때, 이를 `v-text`디렉티브로 렌더링해보겠습니다.
+위와 같은 데이터(data)가 존재한다고 했을 때, 이를 `v-text`디렉티브로 렌더링해보겠습니다.
 ```html
 <h2 v-text="innerText"></h2>
 ```
@@ -185,8 +182,6 @@ data: {
 </script>
 ```
 
-
-
 ### 기타 디렉티브
 * v-pre
   * `{{}}`로 표현된 값을 컴파일하지 않고 text 그대로 출력합니다.
@@ -203,6 +198,13 @@ data: {
 </style>
 <div v-cloak></div>
 ```
+
+</br>
+
+---
+
+</br>
+
 
 ## Vue 인스턴스
 ```js
@@ -244,7 +246,7 @@ computed: {
 특정 값을 주입할 때, 함수를 거쳐 적용되야하는 경우, `computed`라는 것을 넘겨주고 해당 객체의 key로 접근하여 사용할 수 있습니다. 동기적인 계산을 처리할 때 사용합니다. 결과값만을 필요로 할 경우, 함수를 호출하는 형식이 아닌 변수처럼 단순히 `{{}}` 만으로 렌더링할 수 있습니다.
 
 ### watch
-`computed`와 거의 비슷합니다. 하지만 주로 `watch`에서는 비동기적으로 처리해야할 작업들을 명시합니다.
+`computed` 속성과 거의 비슷합니다. 하지만 주로 `watch`에서는 비동기적으로 처리해야할 작업들을 명시합니다.
 ```html
 <div>
   <div>
@@ -266,13 +268,11 @@ data: {
 },
 watch: {
   x: function(val) {
-    console.log("change x");
     const result = Number(val) + Number(this.y);
     if (isNaN(result)) this.sum = 0;
     else this.sum = result;
   },
   y: function(val) {
-    console.log("change y");
     const result = Number(val) + Number(this.x);
     if (isNaN(result)) this.sum = 0;
     else this.sum = result;
@@ -284,17 +284,22 @@ watch: {
 ---
 
 ## Vue 인스턴스 라이프 사이클
-* beforeCreate
-* create
-* beforeMount
-* mounted
-* beforeUpdate
-* updated
-* beforeDestroy
-* destroyed
+1. beforeCreate
+2. create
+3. beforeMount
+4. mounted
+5. beforeUpdate
+6. updated
+7. beforeDestroy
+8. destroyed
 
+[Vue.js 라이프사이클 이해하기 - Jeong Woo Ahn](https://medium.com/witinweb/vue-js-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-7780cdd97dd4)
+
+</br>
 
 ---
+
+</br>
 
 ## 이벤트 처리
 ### v-on 디렉티브를 이용한 인라인처리
@@ -371,7 +376,11 @@ data: {
 * [mouse event].[.left || .right || .middle]
 마우스에 대해서도 이벤트 수식어를 제공합니다.
 
+</br>
+
 ---
+
+</br>
 
 ## 스타일
 ### 인라인 스타일
@@ -477,6 +486,11 @@ Vue.component("data-component", {
 ```
 함수가 호출될 때마다 만들어진 객체가 리턴되기 때문에 컴포넌트를 재사용하더라도 같은 data 객체를 참조할 일이 없습니다.
 
+### Props
+
+### Event Bus
+
+### .vue의 정체
 
 </br>
 
