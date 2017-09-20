@@ -124,7 +124,8 @@ data: {
 
 ### 로직을 위한 디렉티브(directive)
 * v-show
-  * 주어진 조건에 따라 렌더링할지 말지를 결정합니다.
+  * 주어진 조건에 따라 css 속성 중 `display`를 컨트롤하여 화면에 보일지 말지를 결정합니다.
+  * 주어진 조건이 거짓일 경우, `display: none;`을 통해 화면에서 보이지 않게 합니다.
 ```html
 <span v-show="count < 0">Newbie</span>
 ```
