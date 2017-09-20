@@ -127,28 +127,64 @@ data: {
 
 ### 로직을 위한 디렉티브(directive)
 * v-show
-  *
+  * 주어진 조건에 따라 렌더링할지 말지를 결정합니다.
 ```html
+<span v-show="count < 0">Newbie</span>
 ```
 
-* v-if
-* v-else
-* v-else-if
+* v-if / v-else-if / v-else
   * 일반 `if-else`와 같은 역할을 합니다.
+  * `v-if`와 `v-else-if` 그리고 `v-else`는 같은 계층에 존재해야 합니다.
 ```html
+<div>
+  <span v-if="count >= 0 && count <= 3">Bronze</span>
+  <span v-else-if="count > 3 && count <= 6">Silver</span>
+  <span v-else>Gold</span>
+</div>
 ```
 
 * v-for
   * array: (Object, idx) in array
   * object: (val, key, idx) in object
+  * Array와 Object에 대해서 for문을 돌며 렌더링할 수 있고 얻을 수 있는 값들은 위와 같이 얻을 수 있습니다.
 ```html
+<ul v-for="(contact, index) in contacts">
+  <li>
+    <div>
+      <span>ID: </span><span>{{index}}</span>
+    </div>
+    <div>
+      <span>Name: </span><span>{{contact.name}}</span>
+    </div>
+    <div>
+      <span>Age: </span><span>{{contact.age}}</span>
+    </div>
+    <div>
+      <span>Favorite</span><span>{{contact.favorite}}</span>
+    </div>
+  </li>
+</ul>
+```
+```js
+<script>
+data: {
+  contacts: [{
+    name: "jbee",
+    age: "25",
+    favorite: "VanillaJS"
+  }, {
+    name: "jbee",
+    age: "25",
+    favorite: "VanillaJS"
+  }, {
+    name: "jbee",
+    age: "25",
+    favorite: "VanillaJS"
+  }],
+}
+</script>
 ```
 
-### template tag
-```
-<template></template>
-```
-template 태그로 감싸서 for문을 돌릴 수 있습니다.
 
 
 ### 기타 디렉티브
@@ -175,13 +211,13 @@ new Vue({
   data: {
     //...
   },
-  methods: {
-    //...
-  },
   computed: {
     //...
   },
   watch: {
+    //...
+  },
+  methods: {
     //...
   },
 });
@@ -193,7 +229,8 @@ new Vue({
 ### data
 이 `data` 객체는 `model`의 역할을 수행하게 됩니다. 생성된 Vue 인스턴스에서 화면을 렌더링할 때 참조하게되는 데이터 객체인 셈입니다. 이 객체에 명시된 속성으로 데이터를 화면에 렌더링 할 수 있습니다. Vue에서는 데이터를 화면에 렌더링하기 위해 간단하게 `{{}}`처럼 Mustache Expression(콧수염 표현식)을 사용할 수 있고 `디렉티브`를 사용할 수 있습니다. (Mustache Expression은 handlebars라는 템플릿 엔진을 사용해보신 분이라면 익숙한 문법일겁니다!)
 
-* 계산형 속성(Computed Property)
+### computed
+계산형 속성(Computed Property)
 ```
 data: {
 
@@ -204,7 +241,45 @@ computed: {
   }
 }
 ```
-특정 값을 주입할 때, 함수를 거쳐 적용되야하는 경우, `computed`라는 것을 넘겨주고 해당 객체의 key로 접근하여 사용할 수 있다.
+특정 값을 주입할 때, 함수를 거쳐 적용되야하는 경우, `computed`라는 것을 넘겨주고 해당 객체의 key로 접근하여 사용할 수 있습니다. 동기적인 계산을 처리할 때 사용합니다. 결과값만을 필요로 할 경우, 함수를 호출하는 형식이 아닌 변수처럼 단순히 `{{}}` 만으로 렌더링할 수 있습니다.
+
+### watch
+`computed`와 거의 비슷합니다. 하지만 주로 `watch`에서는 비동기적으로 처리해야할 작업들을 명시합니다.
+```html
+<div>
+  <div>
+  x: <input type="text" v-model="x" />
+  </div>
+  <div>
+  y: <input type="text" v-model="y" />
+  </div>
+  <div>
+    sum: <span>{{sum}}</span>
+  </div>
+</div>
+```
+```js
+data: {
+  x: 0,
+  y: 0,
+  sum: 0,
+},
+watch: {
+  x: function(val) {
+    console.log("change x");
+    const result = Number(val) + Number(this.y);
+    if (isNaN(result)) this.sum = 0;
+    else this.sum = result;
+  },
+  y: function(val) {
+    console.log("change y");
+    const result = Number(val) + Number(this.x);
+    if (isNaN(result)) this.sum = 0;
+    else this.sum = result;
+  }
+}
+```
+`computed`와 마찬가지로 결과값만을 필요로 할 경우, 함수를 호출하는 형식이 아닌 변수처럼 단순히 `{{}}` 만으로 렌더링할 수 있습니다.
 
 ---
 
@@ -337,6 +412,75 @@ data: {
 </style>
 ```
 
+</br>
+
+---
+
+</br>
+
+## 컴포넌트
+Vue.js는 여러 컴포넌트들을 조합해 전체 애플리케이션을 작성합니다. 컴포넌트들은 각각 부모-자식 관계의 트리 구조로 형성됩니다. 자식 컴포넌트는 부모 컴포넌트로부터 `Props`라는 속성을 통해 정보를 전달받을 수 있습니다. 이 전달 방향은 부모에서 자식으로만 향하게 됩니다.
+
+Vue 인스턴스에서 사용했던 옵션들(data, methods, computed, watch)은 컴포넌트 수준에서도 사용할 수 있습니다. 단 `data` 옵션은 각 컴포넌트가 관리해야하는 상태에 대해서만 사용하게 됩니다. 컴포넌트를 재사용하는 경우, 각기 다른 곳에서 사용되는 컴포넌트가 하나의 data 객체를 참조하는 것을 막고자 data를 함수로 작성(객체를 반환하는)합니다.
+
+컴포넌트는 다음과 같이 작성합니다.
+```
+Vue.component(tagname, options)
+```
+* tagname: 컴포넌트를 렌더링할 때 사용하는 태그명입니다.
+  * 태그명은 대소문자를 구분하지 않습니다. 그렇기 때문에 케밥 표기법(`-`사용)을 사용하여 작성합니다.
+* options: 컴포넌트에서 렌더링한 template 등을 지정하게 됩니다.
+
+### my-first-component
+우선, 인라인 템플릿(inline-template)으로 컴포넌트를 작성해보겠습니다.
+```js
+Vue.component("my-first-component", {
+  template: "<div>Hello Vue!</div>",
+});
+```
+그런 다음 `my-first-component` 컴포넌트를 렌더링하겠습니다.
+```html
+<div id="app">
+  <my-first-component></my-first-component>
+</div>
+```
+화면에 `Hello Vue!`가 찍힌 것을 확인하실 수 있습니다 :)
+
+### <template></template>
+인라인 템플릿으로 HTML코드를 작성하는 것은 권장되지 않습니다. 별도의 template 태그를 통해서 따로 작성해줍니다.
+```js
+Vue.component("nav-about", {
+  template: "#nav_about",
+});
+```
+```html
+<template id="nav_about">
+   <div>About</div>
+ </template>
+```
+이렇게 작성할 수 있습니다. `template`에 `id`를 부여하여 컴포넌트에서 접근할 수 있도록 합니다. 여기서 주의할 점은 `template`태그 안에는 하나의 루트 엘리먼트가 존재해야 합니다. 같은 계층의 엘리먼트가 존재할 경우 에러가 발생합니다. 부득이하게 같은 계층의 엘리먼트를 렌더링해야 하는 경우에는 `div`태그로 감싸줘야 합니다.
+
+### `data` of Vue.component
+바로 위에서도 언급했듯이, 컴포넌트 내부에서 local data를 관리하기 위한 data 옵션은 함수로 작성되어야 합니다. 일반 객체로 작성할 경우 다음과 같은 warning이 발생합니다.
+```
+[Vue warn]: The "data" option should be a function that returns a per-instance value in component definitions.
+```
+data로 사용하고자하는 객체를 반환하는 함수로 작성해줍니다.
+```js
+Vue.component("data-component", {
+  template: "#data_component",
+  data: function() {
+    return { name: "jbee" };
+  },
+  // data: { name: "jbee" } => warning!!
+});
+```
+함수가 호출될 때마다 만들어진 객체가 리턴되기 때문에 컴포넌트를 재사용하더라도 같은 data 객체를 참조할 일이 없습니다.
+
+
+</br>
+
+</br>
 
 ---
 
@@ -393,3 +537,10 @@ import router from './router'
 (저는 `vue-router`가 포함된 scaffolding을 진행하였습니다.) 총 세 가지를 import하고 있습니다.
 
 `.vue`라는 확장자로 되어있는 파일은 컴포넌트 단위가 됩니다.
+
+
+### template tag
+```
+<template></template>
+```
+template 태그로 감싸서 for문을 돌릴 수 있습니다.
