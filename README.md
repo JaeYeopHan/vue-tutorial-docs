@@ -497,9 +497,11 @@ Vue.component("data-component", {
 
 </br>
 
+(In progress...)
+
 ---
 
->>연재형 포스팅>>
+> 프로젝트 연재형 포스팅
 
 ---
 
