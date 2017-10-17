@@ -1,4 +1,10 @@
-# Vue.js basic
+<div align="center">
+
+![](./assets/vue_tutorial_logo.png)
+
+</div>
+
+# Vue.js tutorial document
 [Vue Korea 공식 홈페이지](https://kr.vuejs.org/v2/guide/)
 
 ## Setup
