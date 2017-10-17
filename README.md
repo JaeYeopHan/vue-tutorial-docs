@@ -7,7 +7,10 @@
 # Vue.js tutorial document
 [Vue Korea 공식 홈페이지](https://kr.vuejs.org/v2/guide/)
 
-## Setup
+</br>
+## 1. Vue-cli를 이용한 프로젝트 세팅
+
+### Setup
 이 포스팅은 node와 npm은 설치되어있다고 가정한 다음 진행됩니다.
 
 ```bash
@@ -22,7 +25,7 @@ $ cd vue-practice
 
 _cf) [Vue-cli Github repository](https://github.com/vuejs/vue-cli)_
 
-#### vue-cli가 제공하는 템플릿은 총 여섯 가지입니다.
+### vue-cli가 제공하는 템플릿은 총 여섯 가지입니다.
 * webpack
 * webpack-simple
 * browserify
@@ -84,11 +87,14 @@ $ live-server
 
 위 코드(`<h1>{{ greeting }}</h1>`)에서는 Mustache Expression으로 `greeting`이라는 데이터를 렌더링하고 있습니다.
 
+</br>
+
 ---
 
 </br>
 
----
+## 2. 각종 디렉티브에 대해 알아보기
+Vue에서 사용하는 `디렉티브(directive)`라는 것에 대해 알아본다.
 
 ## 디렉티브(Directive)
 디렉티브를 통해 화면에 렌더링할 데이터를 정의할 수 있습니다. 디렉티브에는 **단방향 디렉티브**, **양방향 디렉티브** 가 존재합니다.
@@ -212,8 +218,8 @@ data: {
 
 </br>
 
+## 3. Vue 인스턴스
 
-## Vue 인스턴스
 ```js
 new Vue({
   el: ...,
@@ -290,7 +296,11 @@ watch: {
 
 ---
 
-## Vue 인스턴스 라이프 사이클
+</br>
+
+---
+
+## 4. Vue 인스턴스 라이프 사이클
 1. beforeCreate
 2. create
 3. beforeMount
@@ -308,7 +318,7 @@ watch: {
 
 </br>
 
-## 이벤트 처리
+## 5. Vue에서의 이벤트 처리
 ### v-on 디렉티브를 이용한 인라인처리
 ```html
 <div>
@@ -389,7 +399,7 @@ data: {
 
 </br>
 
-## 스타일
+## 6. Vue에서의 스타일
 ### 인라인 스타일
 `v-bind:style`을 통해 인라인으로 style을 적용할 수 있습니다. (권장되는 방식은 아닙니다.) 이 때 style 객체를 작성할 때는 케밥 표기법(- 표기법)이 아닌 카멜 표기법으로 작성해야 합니다. 만약 여러 style 객체를 적용할 경우에는 `v-bind:style` 값으로 배열을 넘겨줍니다.
 ```html
@@ -434,7 +444,7 @@ data: {
 
 </br>
 
-## 컴포넌트
+## 7. Vue 컴포넌트
 Vue.js는 여러 컴포넌트들을 조합해 전체 애플리케이션을 작성합니다. 컴포넌트들은 각각 부모-자식 관계의 트리 구조로 형성됩니다. 자식 컴포넌트는 부모 컴포넌트로부터 `Props`라는 속성을 통해 정보를 전달받을 수 있습니다. 이 전달 방향은 부모에서 자식으로만 향하게 됩니다.
 
 Vue 인스턴스에서 사용했던 옵션들(data, methods, computed, watch)은 컴포넌트 수준에서도 사용할 수 있습니다. 단 `data` 옵션은 각 컴포넌트가 관리해야하는 상태에 대해서만 사용하게 됩니다. 컴포넌트를 재사용하는 경우, 각기 다른 곳에서 사용되는 컴포넌트가 하나의 data 객체를 참조하는 것을 막고자 data를 함수로 작성(객체를 반환하는)합니다.
@@ -511,7 +521,9 @@ Vue.component("data-component", {
 
 ---
 
-# Vue.js TODO Application project## Structure
+# Vue.js TODO Application project
+
+## Structure
 
 [Vue Korea 공식 홈페이지](https://kr.vuejs.org/v2/guide/)
 이 포스팅은 Vue.js 라이브러리로 간단한 TODO 애플리케이션을 만들어보는 연재형 포스팅입니다 :)
