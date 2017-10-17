@@ -1,6 +1,6 @@
 <div align="center">
 
-![](./assets/vue_tutorial_logo.png)
+<img src="./assets/vue_tutorial_logo.png" width="300px" height="300px">
 
 </div>
 
