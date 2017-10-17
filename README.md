@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/vue_tutorial_logo.png" width="300px" height="300px">
+<img src="./assets/vue_tutorial_logo.png" width="400px" height="300px">
 
 </div>
 
